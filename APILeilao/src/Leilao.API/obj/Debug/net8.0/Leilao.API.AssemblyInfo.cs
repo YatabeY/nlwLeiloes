@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Leilao.API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f01c248184b9d72296e972891f5f74a8fc3af2f1")]
 [assembly: System.Reflection.AssemblyProductAttribute("Leilao.API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Leilao.API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
