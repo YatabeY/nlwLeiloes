@@ -1,20 +1,24 @@
 ﻿using Leilao.API.Comunication.Requests;
+using Leilao.API.Contracts;
 using Leilao.API.Entities;
-using Leilao.API.Repositories;
 using Leilao.API.Services;
 
 namespace Leilao.API.UseCases.Offers.CreateOffer;
 
 public class CreateOfferUseCase
 {
-    private readonly LoggedUser _loggedUser;
+    private readonly ILoggedUser _loggedUser;
+    private readonly IOfferRepository _repository;
 
-    public CreateOfferUseCase(LoggedUser loggedUser) => _loggedUser = loggedUser;
+    public CreateOfferUseCase(ILoggedUser loggedUser, IOfferRepository repository)
+    {
+        _loggedUser = loggedUser;
+        _repository = repository;
+
+    }
 
     public int Execute(int itemId, RequestCreateOfferJson request)
     {
-        var repository = new APILeilaoDbContext();
-
         var user = _loggedUser.User();
 
         var offer = new Offer
@@ -24,11 +28,9 @@ public class CreateOfferUseCase
             Price = request.Price,
             UserId = user.Id, 
         };
+        
+        _repository.Add(offer);
 
-        repository.Offers.Add(offer);
-
-        repository.SaveChanges();
-    
         return offer.Id;
     }
 }

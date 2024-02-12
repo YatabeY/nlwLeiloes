@@ -1,25 +1,25 @@
-﻿using Leilao.API.Entities;
-using Leilao.API.Repositories;
+﻿using Leilao.API.Contracts;
+using Leilao.API.Entities;
 
 namespace Leilao.API.Services;
 
-public class LoggedUser
+public class LoggedUser : ILoggedUser
 {
     private readonly IHttpContextAccessor _httpContextAcessor;
+    private readonly IUserRepository _repository;
 
-    public LoggedUser(IHttpContextAccessor httpContext) 
+    public LoggedUser(IHttpContextAccessor httpContext, IUserRepository repository) 
     {
         _httpContextAcessor = httpContext;
+        _repository = repository;
     }
 
     public User User() 
     {
-        var repository = new APILeilaoDbContext();
-
         var token = TokenOnRequest();
         var email = FromBase64String(token);
 
-        return repository.Users.First(user => user.Email.Equals(email));
+        return _repository.GetUserByEmail(email);
     }
 
     private string TokenOnRequest()

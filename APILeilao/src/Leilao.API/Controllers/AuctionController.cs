@@ -9,10 +9,8 @@ public class AuctionController : LeilaoApiBaseController
     [HttpGet]
     [ProducesResponseType(typeof(Auction) ,StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
-    public IActionResult GetCurrentAuction() 
+    public IActionResult GetCurrentAuction([FromServices] GetCurrentAuctionsUseCase useCase) 
     {
-        var useCase = new GetCurrentAuctionsUseCase();
-
         var result = useCase.Execute();
 
         if (result is null)
